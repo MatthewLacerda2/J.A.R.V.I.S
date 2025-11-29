@@ -1,7 +1,13 @@
 # Project Architecture Design
 
 ## Overview
-A drag-and-drop media file webapp that allows users to upload, position, resize, and manage media files (mp4, mp3, jpg, png, txt) on a canvas with a sidebar for file management. Future features include a drawing tool (Instagram stories-style) and an AI chatbot assistant that can view and interact with media items.
+A drag-and-drop media file webapp that allows users to upload, position, resize, and manage media files (mp4, mp3, jpg, png, txt) on a canvas with a sidebar for file management. Future features include a drawing tool (Instagram stories-style) and an AI chatbot assistant with tool calling
+
+Drawing features: change pen width and pick color
+AI features:
+- explaining, deleting (images and text)
+- moving, resizing (all files)
+- editing (text)
 
 ---
 
