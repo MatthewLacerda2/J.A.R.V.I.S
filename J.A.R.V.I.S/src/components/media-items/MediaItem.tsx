@@ -1,3 +1,4 @@
+import React from 'react';
 import { MediaItem as MediaItemType } from '../../types/media';
 import { useSelectionStore } from '../../stores/useSelectionStore';
 import { useMediaStore } from '../../stores/useMediaStore';

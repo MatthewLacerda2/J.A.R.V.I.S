@@ -1,4 +1,4 @@
-import { RefObject, useRef } from 'react';
+import { RefObject, useRef, MouseEvent } from 'react';
 import { useMediaStore } from '../../stores/useMediaStore';
 import { useSelectionStore } from '../../stores/useSelectionStore';
 import { MediaItem } from '../../components/media-items/MediaItem';
@@ -8,8 +8,7 @@ export function Canvas() {
   const clearSelection = useSelectionStore((state) => state.clearSelection);
   const canvasRef = useRef<HTMLDivElement>(null);
 
-  const handleCanvasClick = (e: React.MouseEvent) => {
-    // Only clear selection if clicking directly on canvas (not on a media item)
+  const handleCanvasClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
       clearSelection();
     }
@@ -19,6 +18,7 @@ export function Canvas() {
     <div
       ref={canvasRef}
       className="relative w-full h-screen bg-gray-50 overflow-hidden"
+      id="canvas"
       style={{ position: 'relative' }}
       onClick={handleCanvasClick}
     >

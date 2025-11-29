@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { MediaItem } from '../types/media';
 import { constrainPosition } from '../utils/positionUtils';
