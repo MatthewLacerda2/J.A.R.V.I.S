@@ -5,6 +5,7 @@ import { getFileType } from './utils/fileUtils';
 import { getMediaDimensions, loadImageDimensions, loadVideoDimensions } from './utils/mediaUtils';
 import { CanvasDropZone } from './components/canvas/CanvasDropZone';
 import { Canvas } from './components/canvas/Canvas';
+import { Sidebar } from './components/sidebar/Sidebar';
 
 function App() {
   const addItem = useMediaStore((state) => state.addItem);
@@ -85,10 +86,12 @@ function App() {
   };
 
   return (
+    <div className="flex h-screen">
+      <Sidebar />
       <CanvasDropZone onFilesDropped={handleFilesDropped}>
-        
         <Canvas />
       </CanvasDropZone>
+    </div>
   );
 }
 

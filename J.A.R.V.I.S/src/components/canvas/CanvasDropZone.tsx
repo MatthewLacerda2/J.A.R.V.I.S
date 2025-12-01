@@ -16,7 +16,7 @@ export function CanvasDropZone({ onFilesDropped, children }: Readonly<CanvasDrop
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className="w-full h-screen overflow-hidden relative" id="app"
+      className="flex-1 h-screen overflow-hidden relative" id="app"
     >
       {children}
 

@@ -17,8 +17,7 @@ export function Canvas() {
   return (
     <div
       ref={canvasRef}
-      className="relative w-full h-screen bg-gray-50 overflow-hidden"
-      id="canvas"
+      className="relative w-full h-screen bg-black/95 overflow-hidden"
       style={{ position: 'relative' }}
       onClick={handleCanvasClick}
     >
