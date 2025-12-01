@@ -5,7 +5,6 @@ import { getFileType } from './utils/fileUtils';
 import { getMediaDimensions, loadImageDimensions, loadVideoDimensions } from './utils/mediaUtils';
 import { CanvasDropZone } from './components/canvas/CanvasDropZone';
 import { Canvas } from './components/canvas/Canvas';
-import './App.css';
 
 function App() {
   const addItem = useMediaStore((state) => state.addItem);
@@ -86,11 +85,10 @@ function App() {
   };
 
   return (
-    <div className="w-full h-screen overflow-hidden" id="app">
       <CanvasDropZone onFilesDropped={handleFilesDropped}>
+        
         <Canvas />
       </CanvasDropZone>
-    </div>
   );
 }
 

@@ -5,7 +5,7 @@ A drag-and-drop media file webapp that allows users to upload, position, resize,
 
 Drawing features: change pen width and pick color
 AI features:
-- explaining, deleting (images and text)
+- explaining, deleting (images and text)d
 - moving, resizing (all files)
 - editing (text)
 

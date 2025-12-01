@@ -15,10 +15,13 @@ export function CanvasDropZone({ onFilesDropped, children }: Readonly<CanvasDrop
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className="relative w-full h-full"
-      id="canvas-drop-zone"
+      className="w-full h-screen overflow-hidden relative" id="app"
     >
+        <b>this does </b>
+
       {children}
+      <b>this does not</b>
+
       {isDragging && (
         <div className="absolute inset-0 bg-blue-500/20 border-4 border-dashed border-blue-500 flex items-center justify-center z-50">
           <div className="text-purple-600 text-2xl font-semibold">Drop files here</div>
