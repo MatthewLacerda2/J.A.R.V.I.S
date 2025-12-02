@@ -3,9 +3,10 @@ import { Send } from 'lucide-react';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
+  disabled?: boolean;
 }
 
-export function ChatInput({ onSendMessage }: ChatInputProps) {
+export function ChatInput({ onSendMessage, disabled = false }: ChatInputProps) {
   const [input, setInput] = useState('');
 
   const handleSend = () => {
@@ -30,7 +31,8 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a message..."
-          className="flex-1 bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent"
+          disabled={disabled}
+          className="flex-1 bg-gray-900 text-white placeholder-gray-500 border border-gray-700 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
           rows={1}
           style={{
             minHeight: '40px',
@@ -44,7 +46,7 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
         />
         <button
           onClick={handleSend}
-          disabled={!input.trim()}
+          disabled={!input.trim() || disabled}
           className="p-2 bg-blue-700 text-white rounded-lg hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           aria-label="Send message"
         >
