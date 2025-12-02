@@ -6,12 +6,11 @@ interface AudioItemProps {
 
 export function AudioItem({ item }: AudioItemProps) {
   return (
-    <div className="w-full h-full bg-gray-100 rounded flex items-center justify-center p-4">
-      <div className="text-center">
-        <div className="text-4xl mb-2">🎵</div>
-        <div className="text-sm font-medium text-gray-700 truncate">{item.name}</div>
-        <audio src={item.url} controls className="mt-2 w-full" />
-      </div>
+    <div className="w-full h-full flex flex-col justify-start p-2">
+      <p className="text-lg text-gray-300 font-semibold mb-2">{item.name}</p>
+      <audio controls loop className="w-full">
+        <source src={item.url} type="audio/mpeg" />
+      </audio>
     </div>
   );
 }

@@ -22,7 +22,7 @@ export function Canvas() {
       onClick={handleCanvasClick}
     >
       {items.map((item) => (
-        <MediaItem key={item.id} item={item} canvasRef={canvasRef as unknown as RefObject<HTMLDivElement>} />
+        <MediaItem key={item.id} item={item} canvasRef={canvasRef as RefObject<HTMLDivElement>} />
       ))}
     </div>
   );
