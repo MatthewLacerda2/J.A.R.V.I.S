@@ -19,12 +19,11 @@ export function DrawingToolbar() {
   return (
     <div
       data-drawing-toolbar
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/80 backdrop-blur-sm rounded-full px-6 py-4 flex items-center gap-6 border border-white/10 shadow-lg"
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/80 backdrop-blur-sm rounded-full px-6 py-1 flex items-center gap-6 border border-white/10 shadow-lg"
     >
 
-      {/* Pen Width Slider */}
       <div className="flex items-center gap-3 min-w-[120px]">
-        <span className="text-white text-sm font-medium w-8">{penWidth}</span>
+        <span className="text-white text-lg font-medium w-8">{penWidth}</span>
         <input
           type="range"
           min={MIN_PEN_WIDTH}
@@ -38,19 +37,17 @@ export function DrawingToolbar() {
         />
       </div>
 
-      {/* Separator */}
-      <div className="h-8 w-px bg-white/20" />
+      <div className="h-8 w-px bg-white/30" />
 
-      {/* Color Picker */}
       <div className="flex items-center gap-2">
         {DRAWING_COLORS.map((c) => (
           <button
             key={c}
             onClick={() => setColor(c)}
             className={cn(
-              'w-8 h-8 rounded-full border-2 transition-all hover:scale-110',
+              'w-8 h-8 rounded-full border-2 transition-all hover:scale-100',
               color === c
-                ? 'border-white scale-110 ring-2 ring-white/50'
+                ? 'border-white scale-100 ring-2 ring-white/50'
                 : 'border-white/30 hover:border-white/60'
             )}
             style={{ backgroundColor: c }}
@@ -59,10 +56,8 @@ export function DrawingToolbar() {
         ))}
       </div>
 
-      {/* Separator */}
-      <div className="h-8 w-px bg-white/20" />
+      <div className="h-8 w-px bg-white/30" />
 
-      {/* Undo Button */}
       <button
         onClick={undoLastStroke}
         disabled={!canUndo}
@@ -77,13 +72,11 @@ export function DrawingToolbar() {
         <Undo2 size={20} />
       </button>
 
-      {/* Separator */}
-      <div className="h-8 w-px bg-white/20" />
+      <div className="h-8 w-px bg-white/30" />
 
-      {/* Clear Button */}
       <button
         onClick={clearAll}
-        className="px-4 py-2 text-white text-sm font-medium hover:bg-white/10 rounded-lg transition-colors"
+        className="px-4 py-2 text-white text-lg font-medium hover:bg-white/10 rounded-lg transition-colors"
       >
         Clear
       </button>
