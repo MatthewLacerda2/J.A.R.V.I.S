@@ -1,8 +1,8 @@
-import { Ollama } from 'ollama';
-import { ChatMessage } from '../stores/useChatbotStore';
+import { Ollama } from "ollama";
+import { ChatMessage } from "../stores/useChatbotStore";
 
 const ollama = new Ollama({
-  host: 'http://localhost:11434',
+  host: "http://127.0.0.1:11434",
 });
 
 /**
@@ -16,14 +16,14 @@ const ollama = new Ollama({
 export async function sendMessageToOllama(
   conversationHistory: ChatMessage[],
   onChunk: (chunk: string) => void,
-  model: string = 'qwen3-vl:235b-cloud'
+  model: string = "qwen3-vl:235b-cloud"
 ): Promise<void> {
   // Build messages array for Ollama API
   // Add system prompt first, then the conversation history
   const messages = [
     {
-      role: 'system',
-      content: 'Answer in no more than 120 words.',
+      role: "system",
+      content: "Keep the answer concise",
     },
     ...conversationHistory.map((msg) => ({
       role: msg.role,
@@ -45,7 +45,7 @@ export async function sendMessageToOllama(
       }
     }
   } catch (error) {
-    console.error('Error sending message to Ollama:', error);
+    console.error("Error sending message to Ollama:", error);
     throw error;
   }
 }
