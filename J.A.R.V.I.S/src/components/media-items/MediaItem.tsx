@@ -10,7 +10,7 @@ import { TextItem } from './TextItem';
 
 interface MediaItemProps {
   item: MediaItemType;
-  canvasRef: React.RefObject<HTMLDivElement>;
+  canvasRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function MediaItem({ item, canvasRef }: MediaItemProps) {
@@ -50,6 +50,7 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
 
   return (
     <div
+      data-media-item
       className="absolute cursor-move select-none"
       style={{
         left: `${item.x}px`,

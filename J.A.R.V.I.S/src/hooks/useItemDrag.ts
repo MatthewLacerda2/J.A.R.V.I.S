@@ -6,7 +6,7 @@ import { constrainPosition } from '../utils/positionUtils';
 interface UseItemDragProps {
   item: MediaItem;
   onPositionChange: (x: number, y: number) => void;
-  canvasRef: React.RefObject<HTMLDivElement>;
+  canvasRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function useItemDrag({ item, onPositionChange, canvasRef }: UseItemDragProps) {
