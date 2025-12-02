@@ -1,6 +1,7 @@
 export const DRAWING_COLORS = [
   '#BBBBBB', // White
   '#000000', // Black
+  '#FF00FF', // Pink
   '#FF0000', // Red
   '#00BB00', // Green
   '#0000DD', // Blue
