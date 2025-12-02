@@ -11,6 +11,7 @@ export function ChatbotPanel() {
   const messages = useChatbotStore((state) => state.messages);
   const addUserMessage = useChatbotStore((state) => state.addUserMessage);
   const addAssistantMessage = useChatbotStore((state) => state.addAssistantMessage);
+  const updateLastAssistantMessage = useChatbotStore((state) => state.updateLastAssistantMessage);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -31,20 +32,31 @@ export function ChatbotPanel() {
 
     // Add user message immediately
     addUserMessage(content);
+    
+    addAssistantMessage('');
     setIsLoading(true);
 
     try {
-      // Get current conversation history (includes the user message we just added)
-      const conversationHistory = useChatbotStore.getState().messages;
-
-      // Send conversation history to Ollama and get response
-      const response = await sendMessageToOllama(conversationHistory);
+      // Get current conversation history (includes the user message and empty assistant message)
+      const allMessages = useChatbotStore.getState().messages;
       
-      // Add assistant response
-      addAssistantMessage(response);
+      // Exclude the empty assistant message we just added - only send up to the user message
+      const conversationHistory = allMessages.slice(0, -1);
+
+      // Accumulate the full response as chunks come in
+      let fullResponse = '';
+
+      // Stream the response from Ollama
+      await sendMessageToOllama(
+        conversationHistory,
+        (chunk) => {
+          fullResponse += chunk;
+          updateLastAssistantMessage(fullResponse);
+        }
+      );
     } catch (error) {
       console.error('Error getting response from Ollama:', error);
-      addAssistantMessage('Sorry, I encountered an error. Please try again.');
+      updateLastAssistantMessage('Sorry, I encountered an error. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -91,13 +103,6 @@ export function ChatbotPanel() {
                 content={message.content}
               />
             ))}
-            {isLoading && (
-              <div className="flex justify-start mb-2">
-                <div className="max-w-[90%] rounded-lg px-4 py-2 bg-gray-800 text-gray-100">
-                  <p className="text-sm">Thinking...</p>
-                </div>
-              </div>
-            )}
             <div ref={messagesEndRef} />
           </>
         )}

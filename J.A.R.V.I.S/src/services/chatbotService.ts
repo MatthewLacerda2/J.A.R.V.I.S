@@ -1,19 +1,23 @@
+import { Ollama } from 'ollama';
 import { ChatMessage } from '../stores/useChatbotStore';
 
-const OLLAMA_BASE_URL = 'http://localhost:11434';
+const ollama = new Ollama({
+  host: 'http://localhost:11434',
+});
 
 /**
- * Sends a message to Ollama and receives a response
+ * Sends a message to Ollama and streams the response
  * Maintains conversation history for context
- * @param message - The user's message
- * @param conversationHistory - Previous messages in the conversation
+ * @param conversationHistory - Previous messages in the conversation (includes current user message)
+ * @param onChunk - Callback function to handle each chunk of the streamed response
  * @param model - The Ollama model to use (default: 'qwen3-vl:235b-cloud')
- * @returns Promise<string> - The assistant's response
+ * @returns Promise<void>
  */
 export async function sendMessageToOllama(
   conversationHistory: ChatMessage[],
+  onChunk: (chunk: string) => void,
   model: string = 'qwen3-vl:235b-cloud'
-): Promise<string> {
+): Promise<void> {
   // Build messages array for Ollama API
   // The conversationHistory already includes the current user message
   const messages = conversationHistory.map((msg) => ({
@@ -22,24 +26,18 @@ export async function sendMessageToOllama(
   }));
 
   try {
-    const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model,
-        messages,
-        stream: false,
-      }),
+    const response = await ollama.chat({
+      model,
+      messages,
+      stream: true,
     });
 
-    if (!response.ok) {
-      throw new Error(`Ollama API error: ${response.statusText}`);
+    // Stream the response
+    for await (const chunk of response) {
+      if (chunk.message?.content) {
+        onChunk(chunk.message.content);
+      }
     }
-
-    const data = await response.json();
-    return data.message?.content || '';
   } catch (error) {
     console.error('Error sending message to Ollama:', error);
     throw error;
