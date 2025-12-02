@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { useMediaStore } from "../../stores/useMediaStore";
 import { isValidYouTubeUrl } from "../../utils/youtubeUtils";
 
 interface CanvasDropZoneProps {
@@ -23,6 +24,8 @@ export function CanvasDropZone({
     handleDrop,
   } = useDragAndDrop(onFilesDropped);
   const [imageUrl, setImageUrl] = useState("");
+  const mediaItems = useMediaStore((state) => state.items);
+  const hasNoMediaFiles = mediaItems.length === 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +61,14 @@ export function CanvasDropZone({
         <div className="absolute inset-0 bg-blue-500/20 border-4 border-dashed border-blue-500 flex items-center justify-center z-50">
           <div className="text-purple-600 text-2xl font-semibold">
             Drop files here
+          </div>
+        </div>
+      )}
+
+      {hasNoMediaFiles && !isDragging && (
+        <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+          <div className="text-gray-300 text-3xl font-bold max-w-xl text-center leading-snug">
+            Drag and drop images, videos, audio and text files on the screen
           </div>
         </div>
       )}

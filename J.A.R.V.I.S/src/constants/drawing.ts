@@ -1,11 +1,11 @@
 export const DRAWING_COLORS = [
-  '#BBBBBB', // White
-  '#000000', // Black
-  '#FF00FF', // Pink
-  '#FF0000', // Red
-  '#00BB00', // Green
-  '#0000DD', // Blue
-  '#BB00BB', // Magenta
+  "#FFFFFF", // White
+  "#000000", // Black
+  "#FF00FF", // Pink
+  "#FF0000", // Red
+  "#00DD00", // Green
+  "#0000FF", // Blue
+  "#BB00BB", // Magenta
 ] as const;
 
 export const DEFAULT_COLOR = DRAWING_COLORS[0]; // White
