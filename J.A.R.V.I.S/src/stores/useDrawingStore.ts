@@ -8,9 +8,12 @@ interface DrawingStore {
   color: string;
   penWidth: number;
   isDrawing: boolean;
+  isEnabled: boolean;
 
   setColor: (color: string) => void;
   setPenWidth: (width: number) => void;
+  toggleEnabled: () => void;
+  setEnabled: (enabled: boolean) => void;
   startStroke: (point: Point) => void;
   addPointToStroke: (point: Point) => void;
   endStroke: () => void;
@@ -24,9 +27,12 @@ export const useDrawingStore = create<DrawingStore>((set, get) => ({
   color: DEFAULT_COLOR,
   penWidth: DEFAULT_PEN_WIDTH,
   isDrawing: false,
+  isEnabled: true,
 
   setColor: (color) => set({ color }),
   setPenWidth: (penWidth) => set({ penWidth }),
+  toggleEnabled: () => set((state) => ({ isEnabled: !state.isEnabled })),
+  setEnabled: (enabled) => set({ isEnabled: enabled }),
 
   startStroke: (point) => {
     const { color, penWidth } = get();

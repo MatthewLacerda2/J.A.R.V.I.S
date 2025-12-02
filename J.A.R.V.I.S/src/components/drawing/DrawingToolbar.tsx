@@ -1,5 +1,6 @@
-import { Undo2 } from 'lucide-react';
+import { Undo2, Pencil, PencilOff } from 'lucide-react';
 import { useDrawingStore } from '../../stores/useDrawingStore';
+import { useDiagramStore } from '../../stores/useDiagramStore';
 import { DRAWING_COLORS, MIN_PEN_WIDTH, MAX_PEN_WIDTH } from '../../constants/drawing';
 import { cn } from '../../lib/utils';
 
@@ -8,11 +9,24 @@ export function DrawingToolbar() {
     color,
     penWidth,
     strokes,
+    isEnabled,
     setColor,
     setPenWidth,
+    toggleEnabled,
     clearAll,
     undoLastStroke,
   } = useDrawingStore();
+  const setDiagramToolMode = useDiagramStore((state) => state.setToolMode);
+
+  const handleToggleEnabled = () => {
+    const newEnabledState = !isEnabled;
+    toggleEnabled();
+    if (newEnabledState) {
+      // Turning drawing on, disable diagram tools
+      setDiagramToolMode('none');
+    }
+    // If turning drawing off, don't change diagram mode
+  };
 
   const canUndo = strokes.length > 0;
 
@@ -79,6 +93,21 @@ export function DrawingToolbar() {
         className="px-4 py-2 text-white text-lg font-medium hover:bg-white/10 rounded-lg transition-colors"
       >
         Clear
+      </button>
+
+      <div className="h-8 w-px bg-white/30" />
+
+      <button
+        onClick={handleToggleEnabled}
+        className={cn(
+          'p-2 rounded-lg transition-colors',
+          isEnabled
+            ? 'bg-white/20 text-white'
+            : 'text-white/70 hover:bg-white/10 hover:text-white'
+        )}
+        aria-label={isEnabled ? 'Disable drawing' : 'Enable drawing'}
+      >
+        {isEnabled ? <Pencil size={20} /> : <PencilOff size={20} />}
       </button>
     </div>
   );

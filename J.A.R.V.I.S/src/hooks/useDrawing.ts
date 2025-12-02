@@ -8,31 +8,34 @@ export function useDrawing(canvasRef: RefObject<HTMLDivElement | null>) {
     addPointToStroke,
     endStroke,
     isDrawing,
+    isEnabled,
   } = useDrawingStore();
-
-  const getPointFromEvent = (e: MouseEvent | TouchEvent): Point | null => {
-    if (!canvasRef.current) return null;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    if (e instanceof MouseEvent) {
-      return {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      };
-    } else {
-      const touch = e.touches[0] || e.changedTouches[0];
-      return {
-        x: touch.clientX - rect.left,
-        y: touch.clientY - rect.top,
-      };
-    }
-  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    const getPointFromEvent = (e: MouseEvent | TouchEvent): Point | null => {
+      if (!canvasRef.current) return null;
+
+      const rect = canvasRef.current.getBoundingClientRect();
+      if (e instanceof MouseEvent) {
+        return {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top,
+        };
+      } else {
+        const touch = e.touches[0] || e.changedTouches[0];
+        return {
+          x: touch.clientX - rect.left,
+          y: touch.clientY - rect.top,
+        };
+      }
+    };
+
     const handleStart = (e: MouseEvent | TouchEvent) => {
+      if (!isEnabled) return;
+
       // Don't start drawing if clicking on media items or their children
       const target = e.target as HTMLElement;
       if (target.closest('[data-media-item]')) {
@@ -84,5 +87,5 @@ export function useDrawing(canvasRef: RefObject<HTMLDivElement | null>) {
       window.removeEventListener('touchmove', handleMove);
       window.removeEventListener('touchend', handleEnd);
     };
-  }, [canvasRef, startStroke, addPointToStroke, endStroke, isDrawing]);
+  }, [canvasRef, startStroke, addPointToStroke, endStroke, isDrawing, isEnabled]);
 }

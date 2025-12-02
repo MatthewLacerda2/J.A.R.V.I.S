@@ -30,7 +30,7 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    selectItem(item.id);
+    selectItem(item.id, 'media');
   };
 
   const renderMediaContent = () => {

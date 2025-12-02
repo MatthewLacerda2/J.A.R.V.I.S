@@ -4,7 +4,11 @@ import { useSelectionStore } from '../../stores/useSelectionStore';
 import { MediaItem } from '../../components/media-items/MediaItem';
 import { DrawingCanvas } from '../drawing/DrawingCanvas';
 import { DrawingToolbar } from '../drawing/DrawingToolbar';
+import { DiagramCanvas } from '../diagrams/DiagramCanvas';
+import { DiagramToolbar } from '../diagrams/DiagramToolbar';
 import { useDrawing } from '../../hooks/useDrawing';
+import { useDiagramCreation } from '../../hooks/useDiagramCreation';
+import { useArrowCreation } from '../../hooks/useArrowCreation';
 
 export function Canvas() {
   const items = useMediaStore((state) => state.items);
@@ -12,6 +16,8 @@ export function Canvas() {
   const canvasRef = useRef<HTMLDivElement>(null);
 
   useDrawing(canvasRef);
+  useDiagramCreation(canvasRef);
+  useArrowCreation(canvasRef);
 
   const handleCanvasClick = (e: MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -29,7 +35,9 @@ export function Canvas() {
       {items.map((item) => (
         <MediaItem key={item.id} item={item} canvasRef={canvasRef} />
       ))}
+      <DiagramCanvas canvasRef={canvasRef} />
       <DrawingCanvas canvasRef={canvasRef} />
+      <DiagramToolbar />
       <DrawingToolbar />
     </div>
   );
