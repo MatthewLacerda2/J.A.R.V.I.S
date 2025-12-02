@@ -38,16 +38,17 @@ export function ArrowItem({ arrow, canvasRef }: ArrowItemProps) {
   const dy = end.y - start.y;
   const angle = Math.atan2(dy, dx);
 
-  const arrowHead1X = end.x - ARROW_HEAD_SIZE * Math.cos(angle - Math.PI / 6);
-  const arrowHead1Y = end.y - ARROW_HEAD_SIZE * Math.sin(angle - Math.PI / 6);
-  const arrowHead2X = end.x - ARROW_HEAD_SIZE * Math.cos(angle + Math.PI / 6);
-  const arrowHead2Y = end.y - ARROW_HEAD_SIZE * Math.sin(angle + Math.PI / 6);
+  const arrowHeadSize = ARROW_HEAD_SIZE * 2;
+  const arrowHead1X = end.x - arrowHeadSize * Math.cos(angle - Math.PI / 6);
+  const arrowHead1Y = end.y - arrowHeadSize * Math.sin(angle - Math.PI / 6);
+  const arrowHead2X = end.x - arrowHeadSize * Math.cos(angle + Math.PI / 6);
+  const arrowHead2Y = end.y - arrowHeadSize * Math.sin(angle + Math.PI / 6);
 
   return (
     <svg
       data-arrow-item
       className="absolute top-0 left-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }}
+      style={{ zIndex: 0 }}
     >
       <g
         onClick={handleClick}

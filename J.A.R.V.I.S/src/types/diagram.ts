@@ -1,5 +1,6 @@
 export interface Diagram {
   id: string;
+  name: string;
   x: number;
   y: number;
   width: number;
@@ -12,6 +13,7 @@ export interface Diagram {
 
 export interface Arrow {
   id: string;
+  name: string;
   startX: number;
   startY: number;
   endX: number;

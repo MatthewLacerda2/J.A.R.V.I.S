@@ -1,3 +1,4 @@
+import { Arrow } from '../types/diagram';
 import { useEffect, RefObject } from 'react';
 import { useDiagramStore } from '../stores/useDiagramStore';
 import { findDiagramAtPoint } from '../utils/diagramUtils';
@@ -88,7 +89,7 @@ export function useArrowCreation(canvasRef: RefObject<HTMLDivElement | null>) {
           endY: currentArrowEnd.y,
           startDiagramId: startDiagram?.id || null,
           endDiagramId: endDiagram?.id || null,
-        });
+        } as Arrow);
       }
 
       useDiagramStore.setState({

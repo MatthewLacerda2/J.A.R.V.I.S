@@ -57,6 +57,7 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
         top: `${item.y}px`,
         width: `${item.width}px`,
         height: `${item.height}px`,
+        zIndex: isSelected ? 1000 : 1,
         border: isSelected ? '3px solid #3b82f6' : '2px solid transparent',
         borderRadius: '4px',
         boxShadow: isSelected ? '0 0 0 2px rgba(59, 130, 246, 0.3)' : 'none',

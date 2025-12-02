@@ -62,10 +62,11 @@ export function DiagramCanvas({ canvasRef }: DiagramCanvasProps) {
         const dy = currentArrowEnd.y - currentArrowStart.y;
         const angle = Math.atan2(dy, dx);
         const ARROW_HEAD_SIZE = 10;
-        const arrowHead1X = currentArrowEnd.x - ARROW_HEAD_SIZE * Math.cos(angle - Math.PI / 6);
-        const arrowHead1Y = currentArrowEnd.y - ARROW_HEAD_SIZE * Math.sin(angle - Math.PI / 6);
-        const arrowHead2X = currentArrowEnd.x - ARROW_HEAD_SIZE * Math.cos(angle + Math.PI / 6);
-        const arrowHead2Y = currentArrowEnd.y - ARROW_HEAD_SIZE * Math.sin(angle + Math.PI / 6);
+        const arrowHeadSize = ARROW_HEAD_SIZE * 2;
+        const arrowHead1X = currentArrowEnd.x - arrowHeadSize * Math.cos(angle - Math.PI / 6);
+        const arrowHead1Y = currentArrowEnd.y - arrowHeadSize * Math.sin(angle - Math.PI / 6);
+        const arrowHead2X = currentArrowEnd.x - arrowHeadSize * Math.cos(angle + Math.PI / 6);
+        const arrowHead2Y = currentArrowEnd.y - arrowHeadSize * Math.sin(angle + Math.PI / 6);
 
         return (
           <svg

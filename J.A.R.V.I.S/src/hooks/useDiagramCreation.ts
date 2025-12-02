@@ -1,3 +1,4 @@
+import { Diagram } from '../types/diagram';
 import { useEffect, RefObject } from 'react';
 import { useDiagramStore } from '../stores/useDiagramStore';
 import { findDiagramAtPoint } from '../utils/diagramUtils';
@@ -81,7 +82,7 @@ export function useDiagramCreation(canvasRef: RefObject<HTMLDivElement | null>) 
             width,
             height,
             text: '',
-          });
+          } as Diagram);
         }
       }
 

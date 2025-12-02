@@ -37,9 +37,16 @@ export const useDiagramStore = create<DiagramStore>((set) => ({
   diagrams: [],
   addDiagram: (diagram) => {
     const id = `diagram-${Date.now()}-${Math.random()}`;
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}${minutes}${seconds}`;
+    const name = `Diagram ${timeString}`;
     const newDiagram: Diagram = {
       ...diagram,
       id,
+      name,
       backgroundColor: diagram.backgroundColor || DEFAULT_DIAGRAM_BG_COLOR,
       borderColor: diagram.borderColor || DEFAULT_DIAGRAM_BORDER_COLOR,
       borderWidth: diagram.borderWidth ?? DEFAULT_DIAGRAM_BORDER_WIDTH,
@@ -66,9 +73,16 @@ export const useDiagramStore = create<DiagramStore>((set) => ({
   arrows: [],
   addArrow: (arrow) => {
     const id = `arrow-${Date.now()}-${Math.random()}`;
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    const timeString = `${hours}${minutes}${seconds}`;
+    const name = `Diagram ${timeString}`;
     const newArrow: Arrow = {
       ...arrow,
       id,
+      name,
       color: arrow.color || DEFAULT_ARROW_COLOR,
       strokeWidth: arrow.strokeWidth ?? DEFAULT_ARROW_STROKE_WIDTH,
     };

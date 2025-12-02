@@ -52,6 +52,7 @@ export function DiagramItem({ diagram, canvasRef }: DiagramItemProps) {
         top: `${diagram.y}px`,
         width: `${diagram.width}px`,
         height: `${diagram.height}px`,
+        zIndex: isSelected ? 1000 : 1,
         backgroundColor: diagram.backgroundColor,
         border: `${diagram.borderWidth}px solid ${diagram.borderColor}`,
         borderRadius: '4px',
