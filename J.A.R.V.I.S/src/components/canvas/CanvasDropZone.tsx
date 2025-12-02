@@ -1,15 +1,18 @@
 import React, { ReactNode, useState } from "react";
 import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { isValidYouTubeUrl } from "../../utils/youtubeUtils";
 
 interface CanvasDropZoneProps {
   onFilesDropped: (files: File[]) => void;
   onImageUrl?: (url: string) => void;
+  onYouTubeUrl?: (url: string) => void;
   children: ReactNode;
 }
 
 export function CanvasDropZone({
   onFilesDropped,
   onImageUrl,
+  onYouTubeUrl,
   children,
 }: Readonly<CanvasDropZoneProps>) {
   const {
@@ -23,8 +26,19 @@ export function CanvasDropZone({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (imageUrl.trim() && onImageUrl) {
-      onImageUrl(imageUrl.trim());
+    const url = imageUrl.trim();
+    if (!url) return;
+
+    // Check if it's a YouTube URL
+    if (isValidYouTubeUrl(url) && onYouTubeUrl) {
+      onYouTubeUrl(url);
+      setImageUrl("");
+      return;
+    }
+
+    // Otherwise, try as image URL
+    if (onImageUrl) {
+      onImageUrl(url);
       setImageUrl("");
     }
   };
@@ -53,7 +67,7 @@ export function CanvasDropZone({
           type="text"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
-          placeholder="Add image links here"
+          placeholder="Add image or YouTube links here"
           className="px-4 py-3 rounded-lg border border-gray-500 bg-black/25 text-white placeholder:text-gray-500 min-w-[320px] focus:outline-none"
         />
       </form>

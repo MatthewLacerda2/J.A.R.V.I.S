@@ -1,12 +1,13 @@
-import React from 'react';
-import { MediaItem as MediaItemType } from '../../types/media';
-import { useSelectionStore } from '../../stores/useSelectionStore';
-import { useMediaStore } from '../../stores/useMediaStore';
-import { useItemDrag } from '../../hooks/useItemDrag';
-import { ImageItem } from './ImageItem';
-import { VideoItem } from './VideoItem';
-import { AudioItem } from './AudioItem';
-import { TextItem } from './TextItem';
+import React from "react";
+import { useItemDrag } from "../../hooks/useItemDrag";
+import { useMediaStore } from "../../stores/useMediaStore";
+import { useSelectionStore } from "../../stores/useSelectionStore";
+import { MediaItem as MediaItemType } from "../../types/media";
+import { AudioItem } from "./AudioItem";
+import { ImageItem } from "./ImageItem";
+import { TextItem } from "./TextItem";
+import { VideoItem } from "./VideoItem";
+import { YouTubeItem } from "./YouTubeItem";
 
 interface MediaItemProps {
   item: MediaItemType;
@@ -30,19 +31,21 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    selectItem(item.id, 'media');
+    selectItem(item.id, "media");
   };
 
   const renderMediaContent = () => {
     switch (item.type) {
-      case 'image':
+      case "image":
         return <ImageItem item={item} />;
-      case 'video':
+      case "video":
         return <VideoItem item={item} />;
-      case 'audio':
+      case "audio":
         return <AudioItem item={item} />;
-      case 'text':
+      case "text":
         return <TextItem item={item} />;
+      case "youtube":
+        return <YouTubeItem item={item} />;
       default:
         return null;
     }
@@ -58,9 +61,9 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
         width: `${item.width}px`,
         height: `${item.height}px`,
         zIndex: isSelected ? 1000 : 1,
-        border: isSelected ? '3px solid #3b82f6' : '2px solid transparent',
-        borderRadius: '4px',
-        boxShadow: isSelected ? '0 0 0 2px rgba(59, 130, 246, 0.3)' : 'none',
+        border: isSelected ? "3px solid #3b82f6" : "2px solid transparent",
+        borderRadius: "4px",
+        boxShadow: isSelected ? "0 0 0 2px rgba(59, 130, 246, 0.3)" : "none",
       }}
       onClick={handleClick}
       {...dragHandlers}

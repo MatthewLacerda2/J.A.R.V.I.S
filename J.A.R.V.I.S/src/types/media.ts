@@ -1,4 +1,4 @@
-export type MediaType = 'image' | 'video' | 'audio' | 'text';
+export type MediaType = "image" | "video" | "audio" | "text" | "youtube";
 
 export interface MediaItem {
   id: string;
@@ -14,7 +14,15 @@ export interface MediaItem {
   file?: File; // Original file object (optional)
 }
 
-export type ResizeHandlePosition = 'nw' | 'ne' | 'sw' | 'se' | 'n' | 's' | 'e' | 'w';
+export type ResizeHandlePosition =
+  | "nw"
+  | "ne"
+  | "sw"
+  | "se"
+  | "n"
+  | "s"
+  | "e"
+  | "w";
 
 export interface CanvasBounds {
   width: number;

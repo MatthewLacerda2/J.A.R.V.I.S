@@ -10,6 +10,7 @@ import {
   loadImageDimensions,
   loadVideoDimensions,
 } from "./utils/mediaUtils";
+import { extractYouTubeVideoId, isValidYouTubeUrl } from "./utils/youtubeUtils";
 
 function App() {
   const addItem = useMediaStore((state) => state.addItem);
@@ -173,12 +174,52 @@ function App() {
     }
   };
 
+  const handleYouTubeUrl = async (urlString) => {
+    try {
+      // Validate YouTube URL
+      if (!isValidYouTubeUrl(urlString)) {
+        console.warn("URL is not a valid YouTube URL:", urlString);
+        return;
+      }
+
+      const videoId = extractYouTubeVideoId(urlString);
+      if (!videoId) {
+        console.warn("Could not extract video ID from YouTube URL:", urlString);
+        return;
+      }
+
+      // Get default dimensions for YouTube (16:9 aspect ratio)
+      const dimensions = getMediaDimensions({ type: "youtube" });
+      const aspectRatio = dimensions.width / dimensions.height;
+
+      // Center the item on canvas
+      const canvasWidth = window.innerWidth;
+      const canvasHeight = window.innerHeight;
+      const x = (canvasWidth - dimensions.width) / 2;
+      const y = (canvasHeight - dimensions.height) / 2;
+
+      addItem({
+        type: "youtube",
+        name: `YouTube Video ${videoId}`,
+        url: urlString,
+        x: Math.max(0, x),
+        y: Math.max(0, y),
+        width: dimensions.width,
+        height: dimensions.height,
+        aspectRatio,
+      });
+    } catch (err) {
+      console.error("Failed to process YouTube URL:", urlString, err);
+    }
+  };
+
   return (
     <div className="flex h-screen">
       <Sidebar />
       <CanvasDropZone
         onFilesDropped={handleFilesDropped}
         onImageUrl={handleImageUrl}
+        onYouTubeUrl={handleYouTubeUrl}
       >
         <Canvas />
       </CanvasDropZone>
