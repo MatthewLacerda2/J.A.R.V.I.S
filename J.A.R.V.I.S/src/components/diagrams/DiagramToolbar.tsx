@@ -1,4 +1,4 @@
-import { Square, ArrowRight } from 'lucide-react';
+import { BowArrow, GitCompareArrows, GitPullRequestArrow, RectangleEllipsis, SquareArrowUp, WindArrowDownIcon } from 'lucide-react';
 import { useDiagram } from '../../hooks/useDiagram';
 import { cn } from '../../lib/utils';
 
@@ -20,7 +20,7 @@ export function DiagramToolbar() {
         )}
         aria-label="Rectangle tool"
       >
-        <Square size={20} />
+        <RectangleEllipsis size={20} />
       </button>
 
       <button
@@ -33,7 +33,7 @@ export function DiagramToolbar() {
         )}
         aria-label="Arrow tool"
       >
-        <ArrowRight size={20} />
+        <BowArrow size={20} />
       </button>
     </div>
   );

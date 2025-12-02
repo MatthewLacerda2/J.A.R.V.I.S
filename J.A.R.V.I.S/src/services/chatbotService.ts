@@ -19,11 +19,17 @@ export async function sendMessageToOllama(
   model: string = 'qwen3-vl:235b-cloud'
 ): Promise<void> {
   // Build messages array for Ollama API
-  // The conversationHistory already includes the current user message
-  const messages = conversationHistory.map((msg) => ({
-    role: msg.role,
-    content: msg.content,
-  }));
+  // Add system prompt first, then the conversation history
+  const messages = [
+    {
+      role: 'system',
+      content: 'Answer in no more than 120 words.',
+    },
+    ...conversationHistory.map((msg) => ({
+      role: msg.role,
+      content: msg.content,
+    })),
+  ];
 
   try {
     const response = await ollama.chat({
