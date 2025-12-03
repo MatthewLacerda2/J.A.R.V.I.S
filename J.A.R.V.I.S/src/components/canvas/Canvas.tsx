@@ -1,14 +1,14 @@
-import { useRef, MouseEvent } from 'react';
-import { useMediaStore } from '../../stores/useMediaStore';
-import { useSelectionStore } from '../../stores/useSelectionStore';
-import { MediaItem } from '../../components/media-items/MediaItem';
-import { DrawingCanvas } from '../drawing/DrawingCanvas';
-import { DrawingToolbar } from '../drawing/DrawingToolbar';
-import { DiagramCanvas } from '../diagrams/DiagramCanvas';
-import { DiagramToolbar } from '../diagrams/DiagramToolbar';
-import { useDrawing } from '../../hooks/useDrawing';
-import { useDiagramCreation } from '../../hooks/useDiagramCreation';
-import { useArrowCreation } from '../../hooks/useArrowCreation';
+import { MouseEvent, useRef } from "react";
+import { MediaItem } from "../../components/media-items/MediaItem";
+import { useArrowCreation } from "../../hooks/useArrowCreation";
+import { useDiagramCreation } from "../../hooks/useDiagramCreation";
+import { useDrawing } from "../../hooks/useDrawing";
+import { useMediaStore } from "../../stores/useMediaStore";
+import { useSelectionStore } from "../../stores/useSelectionStore";
+import { DiagramCanvas } from "../diagrams/DiagramCanvas";
+import { DiagramToolbar } from "../diagrams/DiagramToolbar";
+import { DrawingCanvas } from "../drawing/DrawingCanvas";
+import { DrawingToolbar } from "../drawing/DrawingToolbar";
 
 export function Canvas() {
   const items = useMediaStore((state) => state.items);
@@ -29,7 +29,7 @@ export function Canvas() {
     <div
       ref={canvasRef}
       className="relative w-full h-screen bg-black/95 overflow-hidden"
-      style={{ position: 'relative' }}
+      style={{ position: "relative" }}
       onClick={handleCanvasClick}
     >
       {items.map((item) => (

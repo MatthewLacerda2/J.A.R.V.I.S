@@ -67,8 +67,8 @@ export function CanvasDropZone({
 
       {hasNoMediaFiles && !isDragging && (
         <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-          <div className="text-gray-300 text-3xl font-bold max-w-xl text-center leading-snug">
-            Drag and drop images, videos, audio and text files on the screen
+          <div className="text-gray-300/50 text-xl font-semibold max-w-xl text-center leading-snug">
+            Drag and drop images, videos, audio and text files here
           </div>
         </div>
       )}
@@ -79,7 +79,7 @@ export function CanvasDropZone({
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="Add image or YouTube links here"
-          className="px-4 py-3 rounded-lg border border-gray-500 bg-black/25 text-white placeholder:text-gray-500 min-w-[320px] focus:outline-none"
+          className="px-4 py-2.5 rounded-lg border border-gray-500 bg-black/25 text-white placeholder:text-gray-500 min-w-[300px] focus:outline-none"
         />
       </form>
     </div>

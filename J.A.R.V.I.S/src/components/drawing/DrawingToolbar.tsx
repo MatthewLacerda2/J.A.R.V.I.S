@@ -56,7 +56,7 @@ export function DrawingToolbar() {
   return (
     <div
       data-drawing-toolbar
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-black/80 backdrop-blur-sm rounded-full px-6 py-1 flex items-center gap-6 border border-white/10 shadow-lg"
+      className="fixed bottom-6 translate-x-1/4 z-50 backdrop-blur-sm rounded-full py-1 flex items-center gap-6"
     >
       <div className="flex items-center gap-3 min-w-[120px]">
         <span className="text-white text-lg font-medium w-8">{penWidth}</span>
@@ -79,8 +79,6 @@ export function DrawingToolbar() {
         />
       </div>
 
-      <div className="h-8 w-px bg-white/30" />
-
       <div className="flex items-center gap-2">
         {DRAWING_COLORS.map((c) => (
           <button
@@ -98,8 +96,6 @@ export function DrawingToolbar() {
         ))}
       </div>
 
-      <div className="h-8 w-px bg-white/30" />
-
       <button
         onClick={undoLastStroke}
         disabled={!canUndo}
@@ -114,16 +110,12 @@ export function DrawingToolbar() {
         <Undo2 size={20} />
       </button>
 
-      <div className="h-8 w-px bg-white/30" />
-
       <button
         onClick={clearAll}
-        className="px-4 py-2 text-white text-lg font-medium hover:bg-white/10 rounded-lg transition-colors"
+        className=" py-2 text-white text-lg font-medium hover:bg-white/10 rounded-lg transition-colors"
       >
         Clear
       </button>
-
-      <div className="h-8 w-px bg-white/30" />
 
       <button
         onClick={handleToggleEnabled}
