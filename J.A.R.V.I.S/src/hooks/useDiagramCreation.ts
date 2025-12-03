@@ -2,7 +2,7 @@ import { RefObject, useEffect } from "react";
 import { MIN_RECTANGLE_SIZE } from "../constants/diagram";
 import { useDiagramStore } from "../stores/useDiagramStore";
 import { Diagram } from "../types/diagram";
-import { Point } from "../types/drawing";
+import { getPointFromEvent } from "../utils/canvasUtils";
 import { findDiagramAtPoint } from "../utils/diagramUtils";
 
 export function useDiagramCreation(
@@ -20,25 +20,6 @@ export function useDiagramCreation(
   );
 
   useEffect(() => {
-    const getPointFromEvent = (e: MouseEvent | TouchEvent): Point | null => {
-      const canvas = canvasRef.current;
-      if (!canvas) return null;
-
-      const rect = canvas.getBoundingClientRect();
-      if (e instanceof MouseEvent) {
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        };
-      } else {
-        const touch = e.touches[0];
-        if (!touch) return null;
-        return {
-          x: touch.clientX - rect.left,
-          y: touch.clientY - rect.top,
-        };
-      }
-    };
     if (toolMode !== "rectangle") return;
 
     const canvas = canvasRef.current;
@@ -57,7 +38,7 @@ export function useDiagramCreation(
       }
 
       e.preventDefault();
-      const point = getPointFromEvent(e);
+      const point = getPointFromEvent(e, canvas);
       if (point) {
         const existingDiagram = findDiagramAtPoint(point, diagrams);
         if (!existingDiagram) {
@@ -78,7 +59,7 @@ export function useDiagramCreation(
       if (!isCreatingRectangle || !currentRectangleStart) return;
       e.preventDefault();
 
-      const endPoint = getPointFromEvent(e);
+      const endPoint = getPointFromEvent(e, canvas);
       if (endPoint) {
         const width = Math.abs(endPoint.x - currentRectangleStart.x);
         const height = Math.abs(endPoint.y - currentRectangleStart.y);

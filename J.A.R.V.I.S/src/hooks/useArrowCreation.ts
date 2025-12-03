@@ -2,7 +2,7 @@ import { RefObject, useEffect } from "react";
 import { MIN_ARROW_LENGTH } from "../constants/diagram";
 import { useDiagramStore } from "../stores/useDiagramStore";
 import { Arrow } from "../types/diagram";
-import { Point } from "../types/drawing";
+import { getPointFromEvent } from "../utils/canvasUtils";
 import { findDiagramAtPoint } from "../utils/diagramUtils";
 
 export function useArrowCreation(canvasRef: RefObject<HTMLDivElement | null>) {
@@ -15,25 +15,6 @@ export function useArrowCreation(canvasRef: RefObject<HTMLDivElement | null>) {
   const currentArrowEnd = useDiagramStore((state) => state.currentArrowEnd);
 
   useEffect(() => {
-    const getPointFromEvent = (e: MouseEvent | TouchEvent): Point | null => {
-      const canvas = canvasRef.current;
-      if (!canvas) return null;
-
-      const rect = canvas.getBoundingClientRect();
-      if (e instanceof MouseEvent) {
-        return {
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        };
-      } else {
-        const touch = e.touches[0];
-        if (!touch) return null;
-        return {
-          x: touch.clientX - rect.left,
-          y: touch.clientY - rect.top,
-        };
-      }
-    };
     if (toolMode !== "arrow") return;
 
     const canvas = canvasRef.current;
@@ -52,7 +33,7 @@ export function useArrowCreation(canvasRef: RefObject<HTMLDivElement | null>) {
       }
 
       e.preventDefault();
-      const point = getPointFromEvent(e);
+      const point = getPointFromEvent(e, canvas);
       if (point) {
         useDiagramStore.setState({
           isCreatingArrow: true,
@@ -65,7 +46,7 @@ export function useArrowCreation(canvasRef: RefObject<HTMLDivElement | null>) {
     const handleMove = (e: MouseEvent | TouchEvent) => {
       if (!isCreatingArrow || !currentArrowStart) return;
       e.preventDefault();
-      const point = getPointFromEvent(e);
+      const point = getPointFromEvent(e, canvas);
       if (point) {
         useDiagramStore.setState({ currentArrowEnd: point });
       }
