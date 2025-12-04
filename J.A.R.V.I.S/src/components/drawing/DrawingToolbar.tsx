@@ -56,7 +56,7 @@ export function DrawingToolbar() {
   return (
     <div
       data-drawing-toolbar
-      className="fixed bottom-6 translate-x-1/4 z-50 backdrop-blur-sm rounded-full py-1 flex items-center gap-6"
+      className="fixed bottom-5 translate-x-1/4 z-50 backdrop-blur-sm rounded-full flex items-center gap-6"
     >
       <div className="flex items-center gap-3 min-w-[120px]">
         <span className="text-white text-lg font-medium w-8">{penWidth}</span>

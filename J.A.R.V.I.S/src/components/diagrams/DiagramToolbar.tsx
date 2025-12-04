@@ -8,14 +8,14 @@ export function DiagramToolbar() {
   return (
     <div
       data-diagram-toolbar
-      className="fixed top-3 right-1/8 -translate-x-1/2 z-50 bg-black/80 rounded-full px-3.5 py-2 flex items-center gap-3 border border-white/10"
+      className="fixed top-3 right-1/8 -translate-x-1/2 z-50 bg-black/80 rounded-full px-3.5 py-1 flex items-center gap-3 border border-white/10"
     >
       <button
         onClick={() =>
           setToolMode(toolMode === "rectangle" ? "none" : "rectangle")
         }
         className={cn(
-          "px-3 py-2 rounded-full transition-colors flex items-center gap-2",
+          "px-2 py-2 rounded-full transition-colors flex items-center gap-2",
           toolMode === "rectangle"
             ? "bg-white/20 text-white"
             : "text-white/70 hover:bg-white/10 hover:text-white"

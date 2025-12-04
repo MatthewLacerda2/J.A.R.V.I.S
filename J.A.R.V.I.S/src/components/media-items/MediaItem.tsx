@@ -1,8 +1,10 @@
 import React from "react";
 import { useItemDrag } from "../../hooks/useItemDrag";
+import { useMediaResize } from "../../hooks/useMediaResize";
 import { useMediaStore } from "../../stores/useMediaStore";
 import { useSelectionStore } from "../../stores/useSelectionStore";
 import { MediaItem as MediaItemType } from "../../types/media";
+import { ResizeHandles } from "../resize-handle/ResizeHandle";
 import { AudioItem } from "./AudioItem";
 import { ImageItem } from "./ImageItem";
 import { TextItem } from "./TextItem";
@@ -25,6 +27,14 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
     item,
     onPositionChange: (x, y) => {
       updateItem(item.id, { x, y });
+    },
+    canvasRef,
+  });
+
+  const { handleMouseDown } = useMediaResize({
+    item,
+    onResize: (x, y, width, height) => {
+      updateItem(item.id, { x, y, width, height });
     },
     canvasRef,
   });
@@ -69,6 +79,7 @@ export function MediaItem({ item, canvasRef }: MediaItemProps) {
       {...dragHandlers}
     >
       {renderMediaContent()}
+      {isSelected && <ResizeHandles onHandleMouseDown={handleMouseDown} />}
     </div>
   );
 }
