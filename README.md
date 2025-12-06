@@ -1,5 +1,6 @@
 # J.A.R.V.I.S
 
+🔗 [Live Demo](https://matthewlacerda2.github.io/J.A.R.V.I.S)
 Personal AI-powered Media Board with drawing and diagram features
 
 ## How to run
